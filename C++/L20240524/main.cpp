@@ -24,25 +24,24 @@ int main()
 	}
 	cout << endl;
 
-	for (int i = 0; i < Range; ++i)
-	{
-		NewArr[i] = Arr[i];
-	}
-
 	cout << "입력 : ";
 	cin >> Num;
 	cout << "입력되는 위치 : " << Index << endl;
-	for (int i = Range-1; i >= Index; --i)
-	{
-		int temp = NewArr[i];
-		NewArr[i+1] = temp;
-	}
 
+	for (int i = 0; i < Index; ++i)
+	{
+		NewArr[i] = Arr[i];
+	}
 	NewArr[Index] = Num;
+	for (int i = Index + 1; i < Range + 1; ++i)
+	{
+		NewArr[i] = Arr[i - 1];
+	}
 
 	delete[] Arr;
 	Arr = NewArr;
 	NewArr = nullptr;
+
 	cout << "추가 후 : ";
 	for (int i = 0; i <= Range; ++i)
 	{
