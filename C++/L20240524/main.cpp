@@ -6,19 +6,19 @@ using namespace std;
 int main()
 {
 	srand((unsigned int)time(nullptr));
-	int Range = 10;
-	int* Arr = new int[Range]();
-	int* NewArr = new int[Range+1]();
-	int Index = rand() % Range;
+	int Size = 10;
+	int* Arr = new int[Size]();
+	int* NewArr = new int[Size+1]();
+	int Index = rand() % Size;
 	int Num;
 
-	for (int i = 0; i < Range; ++i)
+	for (int i = 0; i < Size; ++i)
 	{
 		Arr[i] = i + 1;
 	}
 	
 	cout << "기존 : ";
-	for (int i = 0; i < Range; ++i)
+	for (int i = 0; i < Size; ++i)
 	{
 		cout << Arr[i] << ' ';
 	}
@@ -33,7 +33,7 @@ int main()
 		NewArr[i] = Arr[i];
 	}
 	NewArr[Index] = Num;
-	for (int i = Index + 1; i < Range + 1; ++i)
+	for (int i = Index + 1; i < Size + 1; ++i)
 	{
 		NewArr[i] = Arr[i - 1];
 	}
@@ -43,7 +43,7 @@ int main()
 	NewArr = nullptr;
 
 	cout << "추가 후 : ";
-	for (int i = 0; i <= Range; ++i)
+	for (int i = 0; i <= Size; ++i)
 	{
 		cout<<Arr[i]<<' ';
 	}
