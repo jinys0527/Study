@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ede06521-5e1b-447b-bc0d-44f0794c28eb}</ProjectGuid>
-    <RootNamespace>BlackJack</RootNamespace>
+    <ProjectGuid>{aa85b920-8389-479d-a2ba-4e70da26bb74}</ProjectGuid>
+    <RootNamespace>CforProfessions</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>C++_for _Professionals</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,21 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="Dealer.cpp" />
-    <ClCompile Include="Deck.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Participant.cpp" />
-    <ClCompile Include="Player.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Card.h" />
-    <ClInclude Include="Dealer.h" />
-    <ClInclude Include="Deck.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Participant.h" />
-    <ClInclude Include="Player.h" />
+    <ClCompile Include="S20240602.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
