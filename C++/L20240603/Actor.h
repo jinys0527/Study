@@ -26,6 +26,7 @@ public:
 	EType GetType();
 	void SetType(EType NewType);
 	FPosition& GetPos();
+	virtual bool GetArriveFlag();
 	virtual void Move();
 	virtual void Move(char key);
 	virtual void Attack();

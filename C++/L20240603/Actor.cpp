@@ -46,6 +46,11 @@ FPosition& AActor::GetPos()
 	return ActorPos;
 }
 
+bool AActor::GetArriveFlag()
+{
+	return false;
+}
+
 void AActor::Move()
 {
 }

@@ -64,23 +64,44 @@ int main()
 	{
 		Game->Print();
 		key = _getch();
+		if (key == 'q')
+			break;
 		for (int i = 0; i < Game->GetActors().size(); ++i)
 		{
 			if (i == 0)
 			{
 				Game->GetActors()[i]->Move(key);
+				if (Game->GetActors()[i]->GetArriveFlag())
+				{
+					system("cls");
+					Game->Print();
+					cout << "Clear" << endl;
+					return 0;
+				}
+				system("cls");
+				Game->Print();
+				key = _getch();
+				if (key == 'q')
+					break;
 				Game->GetActors()[i]->Attack(key);
+				Sleep(200);
+				system("cls");
+				Game->Print();
 			}
 			else
 			{
 				Game->GetActors()[i]->Move();
+				Sleep(200);
+				system("cls");
+				Game->Print();
 				Game->GetActors()[i]->Attack();
+				Sleep(200);
+				system("cls");
+				Game->Print();
 			}
 		}
 		Sleep(500);
 		system("cls");
-		if (key == 'q')
-			break;
 	}
 	
 	for (AActor* Actor : Game->GetActors())

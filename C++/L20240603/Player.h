@@ -8,12 +8,15 @@ public:
 	APlayer(int X, int Y);
 	bool GetAttackFlag();
 	void SetAttackFlag(bool NewFlag);
+	virtual bool GetArriveFlag() override;
+	void SetArriveFlag(bool NewFlag);
 	virtual void Move(char key) override;
 	virtual void Attack(char key) override;
 	void DetectEnemy(char key);
 protected:
 	char Direction = 'd';
 	bool AttackFlag = false;
+	bool ArriveFlag = false;
 	
 };
 

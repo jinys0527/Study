@@ -8,7 +8,7 @@ class FGame
 public:
 	FGame();
 	virtual ~FGame();
-	void Print();
+	static void Print();
 	static EType GetType(int X, int Y);
 	static std::vector<AActor*>& GetActors();
 	static void SetType(EType NewType, int X, int Y);
