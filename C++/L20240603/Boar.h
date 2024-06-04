@@ -5,6 +5,5 @@ class FBoar : public FMonster
 public:
 	FBoar();
 	virtual ~FBoar();
-
 };
 

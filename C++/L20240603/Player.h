@@ -1,12 +1,19 @@
 #pragma once
 #include "Actor.h"
-class FPlayer : public AActor
+class APlayer : public AActor
 {
 public:
-	FPlayer();
-	virtual ~FPlayer();
+	APlayer();
+	virtual ~APlayer();
+	bool GetAttackFlag();
+	void SetAttackFlag(bool NewFlag);
+	virtual void Move(char key) override;
+	virtual void Attack(char key) override;
+	void DetectEnemy(char key);
 protected:
-	void GameOver();
-	void Restart(int key);
+	FPosition PlayerPos;
+	char Direction = 'd';
+	bool AttackFlag = false;
+	
 };
 

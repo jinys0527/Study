@@ -1,6 +1,7 @@
 #pragma once
 #include "Position.h"
 
+
 class AActor
 {
 public:
@@ -8,11 +9,18 @@ public:
 	virtual ~AActor();
 	int GetHP();
 	void SetHP(int NewHP);
+	bool GetFlag();
+	void SetFlag(bool NewFlag);
+	FPosition GetPos();
+	virtual void Move();
+	virtual void Move(char key);
+	virtual void Attack();
+	virtual void Attack(char key);
+
 protected:
 	int HP;
 	FPosition ActorPos;
-	void Move(char key);
-	void Attack();
+	bool DieFlag;
 	void Die();
 };
 

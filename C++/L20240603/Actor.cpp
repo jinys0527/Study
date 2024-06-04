@@ -3,6 +3,7 @@
 AActor::AActor()
 {
 	HP = 100;
+	DieFlag = false;
 }
 
 AActor::~AActor()
@@ -19,19 +20,41 @@ void AActor::SetHP(int NewHP)
 	HP = NewHP;
 }
 
+bool AActor::GetFlag()
+{
+	return DieFlag;
+}
+
+void AActor::SetFlag(bool NewFlag)
+{
+	DieFlag = NewFlag;
+}
+
+FPosition AActor::GetPos()
+{
+	return ActorPos;
+}
+
+void AActor::Move()
+{
+}
+
 void AActor::Move(char key)
 {
-	switch (key)
-	{
-	case 'w':
-
-	}
 }
 
 void AActor::Attack()
 {
 }
 
+void AActor::Attack(char key)
+{
+}
+
 void AActor::Die()
 {
+	if (HP == 0)
+	{
+		DieFlag = true;
+	}
 }
