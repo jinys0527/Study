@@ -10,12 +10,12 @@ FPosition::~FPosition()
 {
 }
 
-int FPosition::GetX()
+int& FPosition::GetX()
 {
 	return X;
 }
 
-int FPosition::GetY()
+int& FPosition::GetY()
 {
 	return Y;
 }

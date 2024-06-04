@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+using namespace std;
 
 FMonster::FMonster()
 {
@@ -17,7 +19,7 @@ FMonster::FMonster()
 	//		count++;
 	//	}
 	//}
-	//CurDirection = 4;
+	CurDirection = 3;
 }
 
 FMonster::~FMonster()
@@ -26,54 +28,13 @@ FMonster::~FMonster()
 
 void FMonster::Move()
 {
-	srand((unsigned int)time(nullptr));
-	int num = rand() % 4 + 1;
-	CurDirection = num;
-	int CurX = MonsterPos.GetX();
-	int CurY = MonsterPos.GetY();
-	switch (num)
-	{
-	case 1:
-		if (FGame::GetType(CurX, CurY - 1) == EType::None)
-		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Enemy, CurX, CurY - 1);
-			MonsterPos.SetY(CurY--);
-		}
-		break;
-	case 2:
-		if (FGame::GetType(CurX - 1, CurY) == EType::None)
-		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Enemy, CurX - 1, CurY);
-			MonsterPos.SetY(CurX--);
-		}
-		break;
-	case 3:
-		if (FGame::GetType(CurX, CurY + 1) == EType::None)
-		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Enemy, CurX, CurY + 1);
-			MonsterPos.SetY(CurY++);
-		}
-		break;
-	case 4:
-		if (FGame::GetType(CurX + 1, CurY) == EType::None)
-		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Enemy, CurX + 1, CurY);
-			MonsterPos.SetY(CurX++);
-		}
-		break;
-	default:
-		break;
-	}
+	
 }
 
 void FMonster::Attack()
 {  
-	int CurX = MonsterPos.GetX();
-	int CurY = MonsterPos.GetY();
+	int CurX = GetPos().GetX();
+	int CurY = GetPos().GetY();
 	switch (CurDirection)
 	{
 	case 1:			//W
@@ -81,9 +42,10 @@ void FMonster::Attack()
 		{
 			for (int i = 0; i < FGame::GetActors().size(); i++)
 			{
-				if (FGame::GetActors()[i]->GetPos().GetX() == MonsterPos.GetX() && FGame::GetActors()[i]->GetPos().GetY() == MonsterPos.GetY() - 1)
+				if (FGame::GetActors()[i]->GetPos().GetX() == GetPos().GetX() && FGame::GetActors()[i]->GetPos().GetY() == GetPos().GetY() - 1)
 				{
 					FGame::GetActors()[i]->SetHP(FGame::GetActors()[i]->GetHP() - 10);
+					cout << FGame::GetActors()[i]->GetName() << FGame::GetActors()[i]->GetHP();
 				}
 			}
 		}
@@ -93,9 +55,10 @@ void FMonster::Attack()
 		{
 			for (int i = 0; i < FGame::GetActors().size(); i++)
 			{
-				if (FGame::GetActors()[i]->GetPos().GetX() == MonsterPos.GetX() && FGame::GetActors()[i]->GetPos().GetY() == MonsterPos.GetY() - 1)
+				if (FGame::GetActors()[i]->GetPos().GetX() == GetPos().GetX() && FGame::GetActors()[i]->GetPos().GetY() == GetPos().GetY() - 1)
 				{
 					FGame::GetActors()[i]->SetHP(FGame::GetActors()[i]->GetHP() - 10);
+					cout << FGame::GetActors()[i]->GetName() << FGame::GetActors()[i]->GetHP();
 				}
 			}
 		}
@@ -105,9 +68,10 @@ void FMonster::Attack()
 		{
 			for (int i = 0; i < FGame::GetActors().size(); i++)
 			{
-				if (FGame::GetActors()[i]->GetPos().GetX() == MonsterPos.GetX() && FGame::GetActors()[i]->GetPos().GetY() == MonsterPos.GetY() - 1)
+				if (FGame::GetActors()[i]->GetPos().GetX() == GetPos().GetX() && FGame::GetActors()[i]->GetPos().GetY() == GetPos().GetY() - 1)
 				{
 					FGame::GetActors()[i]->SetHP(FGame::GetActors()[i]->GetHP() - 10);
+					cout << FGame::GetActors()[i]->GetName() << FGame::GetActors()[i]->GetHP();
 				}
 			}
 		}
@@ -117,9 +81,10 @@ void FMonster::Attack()
 		{
 			for (int i = 0; i < FGame::GetActors().size(); i++)
 			{
-				if (FGame::GetActors()[i]->GetPos().GetX() == MonsterPos.GetX() && FGame::GetActors()[i]->GetPos().GetY() == MonsterPos.GetY() - 1)
+				if (FGame::GetActors()[i]->GetPos().GetX() == GetPos().GetX() && FGame::GetActors()[i]->GetPos().GetY() == GetPos().GetY() - 1)
 				{
 					FGame::GetActors()[i]->SetHP(FGame::GetActors()[i]->GetHP() - 10);
+					cout << FGame::GetActors()[i]->GetName() << FGame::GetActors()[i]->GetHP();
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 #include "Actor.h"
+#include <string>
 
 AActor::AActor()
 {
@@ -30,7 +31,17 @@ void AActor::SetFlag(bool NewFlag)
 	DieFlag = NewFlag;
 }
 
-FPosition AActor::GetPos()
+EType AActor::GetType()
+{
+	return Type;
+}
+
+void AActor::SetType(EType NewType)
+{
+	Type = NewType;
+}
+
+FPosition& AActor::GetPos()
 {
 	return ActorPos;
 }
@@ -51,10 +62,12 @@ void AActor::Attack(char key)
 {
 }
 
+std::string AActor::GetName()
+{
+	return Name;
+}
+
 void AActor::Die()
 {
-	if (HP == 0)
-	{
-		DieFlag = true;
-	}
+	DieFlag = true;
 }

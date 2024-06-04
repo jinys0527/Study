@@ -1,4 +1,10 @@
 #include "Game.h"
+#include "Player.h"
+#include "Goblin.h"
+#include "Boar.h"
+#include "Slime.h"
+#include "Monster.h"
+#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -7,18 +13,63 @@ std::vector<std::vector<EType>> FGame::Map;
 
 FGame::FGame()
 {
-	FILE* PFile = NULL;
+	ifstream InputFile;
+	char Line[255] = "";
+
+	InputFile.open("map.txt");
+
+	int j = 0;
+	while (InputFile.getline(Line, 255))
+	{
+		Map.push_back(std::vector<EType>());
+		for (int i = 0; i < strlen(Line); ++i)
+		{
+			switch (Line[i])
+			{
+			case '*':
+				Map[j].push_back(EType::Wall);
+				break;
+			case ' ':
+				Map[j].push_back(EType::None);
+				break;
+			case 'P':
+				Map[j].push_back(EType::Player);
+				Actors.push_back(new APlayer(i-1, j));
+				break;
+			case 'E':
+				Map[j].push_back(EType::EndPoint);
+				break;
+			case 'G':
+				Map[j].push_back(EType::Goblin);
+				Actors.push_back(new FGoblin(i-1, j));
+				break;
+			case 'B':
+				Map[j].push_back(EType::Boar);
+				Actors.push_back(new FBoar(i-1, j));
+				break;
+			case 'S':
+				Map[j].push_back(EType::Slime);
+				Actors.push_back(new FSlime(i-1, j));
+				break;
+			default:
+				break;
+			}
+		}
+		j++;
+	}
+
+	InputFile.close();
+	/*FILE* PFile = NULL;
 	fopen_s(&PFile, "map.txt", "r");
 	if (PFile == NULL)
 	{
 		perror("Error File Opening");
 		return ;
-	}
+	}*/
 
-	char Line[255] = "";
-	char* PLine;
-	int j = 0;
-	while (!feof(PFile))
+	
+	
+	/*while (!feof(PFile))
 	{
 		PLine = fgets(Line, sizeof(Line), PFile);
 		Map.push_back(std::vector<EType>());
@@ -34,12 +85,22 @@ FGame::FGame()
 				break;
 			case 'P':
 				Map[j].push_back(EType::Player);
+				Actors.push_back(new APlayer(i, j));
 				break;
 			case 'E':
-				Map[j].push_back(EType::Enemy);
+				Map[j].push_back(EType::EndPoint);
 				break;
 			case 'G':
-				Map[j].push_back(EType::Goal);
+				Map[j].push_back(EType::Goblin);
+				Actors.push_back(new FGoblin(i, j));
+				break;
+			case 'B':
+				Map[j].push_back(EType::Boar);
+				Actors.push_back(new FBoar(i, j));
+				break;
+			case 'S':
+				Map[j].push_back(EType::Slime);
+				Actors.push_back(new FSlime(i, j));
 				break;
 			default:
 				break;
@@ -47,6 +108,8 @@ FGame::FGame()
 		}
 		j++;
 	}
+
+	fclose(PFile);*/
 	/*for (int i = 0; i < 10; ++i)
 	{
 		Map.push_back(std::vector<EType>());
@@ -99,11 +162,17 @@ void FGame::Print()
 			case EType::Player:
 				cout << 'P';
 				break;
-			case EType::Enemy:
+			case EType::EndPoint:
 				cout << 'E';
 				break;
-			case EType::Goal:
+			case EType::Goblin:
 				cout << 'G';
+				break;
+			case EType::Boar:
+				cout << 'B';
+				break;
+			case EType::Slime:
+				cout << 'S';
 				break;
 			default:
 				break;

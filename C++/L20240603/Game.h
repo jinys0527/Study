@@ -2,15 +2,6 @@
 #include "Actor.h"
 #include <vector>
 
-enum class EType
-{
-	None = -1,
-	Wall,
-	Player,
-	Enemy,
-	Goal,
-	Max
-};
 
 class FGame
 {

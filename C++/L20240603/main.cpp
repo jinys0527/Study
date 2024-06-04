@@ -14,92 +14,74 @@ int main()
 {
 	srand((unsigned int)time(nullptr));
 	FGame* Game = new FGame();
-	Game->GetActors().push_back(new APlayer());
-	EType type;
 	char key;
 
-	for (int i = 0; i < 5; ++i)
-	{
-		int num = rand() % 3 + 1;
-		switch (num)
-		{
-		case 1:
-			Game->GetActors().push_back(new FGoblin());
-			break;
-		case 2:
-			Game->GetActors().push_back(new FSlime());
-			break;
-		case 3:
-			Game->GetActors().push_back(new FBoar());
-			break;
-		}
-	}
+	vector<vector<EType>> Test;
 
-	/*for (int i=0;i<Game->GetActors().size();++i)
+	/*while (true)
 	{
-		type = Game->GetType(Game->GetActors()[i]->GetPos().GetX(), Game->GetActors()[i]->GetPos().GetY());
-		switch (type)
+		Test = Game->GetMap();
+		for (int i = 0; i < Test.size(); ++i)
 		{
-		case EType::None:
-			cout << "None";
-			break;
-		case EType::Wall:
-			cout << "Wall";
-			break;
-		case EType::Player:
-			cout << "Player";
-			break;
-		case EType::Enemy:
-			cout << "Enemy";
-			break;
-		case EType::Max:
-			cout << "Max";
-			break;
+			for (int j = 0; j < Test[i].size(); ++j)
+			{
+				switch (Test[i][j])
+				{
+				case EType::None:
+					cout << "None";
+					break;
+				case EType::Wall:
+					cout << "Wall";
+					break;
+				case EType::Player:
+					cout << "Player";
+					break;
+				case EType::EndPoint:
+					cout << "EndPoint";
+					break;
+				case EType::Goblin:
+					cout << "Goblin";
+					break;
+				case EType::Boar:
+					cout << "Boar";
+					break;
+				case EType::Slime:
+					cout << "Slime";
+					break;
+				default:
+					break;
+				}
+			}
+			cout << endl;
 		}
+		
+		key = _getch();
+		Game->GetActors()[0]->Move(key);
 	}*/
-	Game->Print();
+	
 
-	//while (true)
-	//{
-	//	Game->Print();
-	//	key = _getch();
-	//	for (int i = 0; i < Game->GetActors().size(); ++i)
-	//	{
-	//		if (i == 0)
-	//		{
-	//			type = Game->GetType(Game->GetActors()[i]->GetPos().GetX(), Game->GetActors()[i]->GetPos().GetY());
-	//			switch (type)
-	//			{
-	//			case EType::None:
-	//				cout << "None";
-	//				break;
-	//			case EType::Wall:
-	//				cout << "Wall";
-	//				break;
-	//			case EType::Player:
-	//				cout << "Player";
-	//				break;
-	//			case EType::Enemy:
-	//				cout << "Enemy";
-	//				break;
-	//			case EType::Max:
-	//				cout << "Max";
-	//				break;
-	//			}
-	//		//	Game->GetActors()[i]->Move(key);
-	//			Game->GetActors()[i]->Attack(key);
-	//		}
-	//		else
-	//		{
-	//		//	Game->GetActors()[i]->Move();
-	//			Game->GetActors()[i]->Attack();
-	//		}
-	//	}
-	//	Sleep(500);
-	//	system("cls");
-	//	if (key == 'q')
-	//		break;
-	//}
+	while (true)
+	{
+		Game->Print();
+		key = _getch();
+		for (int i = 0; i < Game->GetActors().size(); ++i)
+		{
+			if (i == 0)
+			{
+				Game->GetActors()[i]->Move(key);
+				Game->GetActors()[i]->Attack(key);
+			}
+			else
+			{
+				Game->GetActors()[i]->Move();
+				Game->GetActors()[i]->Attack();
+			}
+		}
+		Sleep(500);
+		system("cls");
+		if (key == 'q')
+			break;
+	}
 	
 	for (AActor* Actor : Game->GetActors())
 	{

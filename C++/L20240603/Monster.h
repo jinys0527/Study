@@ -8,8 +8,6 @@ public:
 	virtual void Move() override;
 	virtual void Attack() override;
 protected:
-	FPosition MonsterPos;
 	int CurDirection;
-	
 };
 
