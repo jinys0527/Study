@@ -1,8 +1,6 @@
 #include "Slime.h"
 #include "Game.h"
-#include <cstdlib>
-#include <ctime>
-
+#include "Util.h"
 
 FSlime::FSlime()
 {
@@ -36,6 +34,7 @@ void FSlime::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Slime, CurX, CurY - 1);
 			GetPos().SetY(CurY - 1);
+			cout << "Slime Move Up" << endl;
 		}
 		break;
 	case 2:
@@ -44,6 +43,7 @@ void FSlime::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Slime, CurX - 1, CurY);
 			GetPos().SetX(CurX - 1);
+			cout << "Slime Move Left" << endl;
 		}
 		break;
 	case 3:
@@ -52,6 +52,7 @@ void FSlime::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Slime, CurX, CurY + 1);
 			GetPos().SetY(CurY + 1);
+			cout << "Slime Move Down" << endl;
 		}
 		break;
 	case 4:
@@ -60,6 +61,7 @@ void FSlime::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Slime, CurX + 1, CurY);
 			GetPos().SetX(CurX + 1);
+			cout << "Slime Move Right" << endl;
 		}
 		break;
 	default:

@@ -1,8 +1,6 @@
 #include "Player.h"
 #include "Game.h"
-#include <iostream>
-#include <windows.h>
-using namespace std;
+#include "Util.h"
 
 APlayer::APlayer()
 {
@@ -40,6 +38,48 @@ bool APlayer::GetArriveFlag()
 void APlayer::SetArriveFlag(bool NewFlag)
 {
 	ArriveFlag = NewFlag;
+}
+
+void APlayer::PrintMove(char key)
+{
+	switch (key)
+	{
+	case 'w':
+		cout << "Player Move Up" << endl;
+		break;
+	case 'a':
+		cout << "Player Move Left" << endl;
+		break;
+	case 's':
+		cout << "Player Move Down" << endl;
+		break;
+	case 'd':
+		cout << "Player Move Right" << endl;
+		break;
+	default:
+		break;
+	}
+}
+
+void APlayer::PrintAttack(char key)
+{
+	switch (key)
+	{
+	case 'w':
+		cout << "Player Attack Up" << endl;
+		break;
+	case 'a':
+		cout << "Player Attack Left" << endl;
+		break;
+	case 's':
+		cout << "Player Attack Down" << endl;
+		break;
+	case 'd':
+		cout << "Player Attack Right" << endl;
+		break;
+	default:
+		break;
+	}
 }
 
 void APlayer::DetectEnemy(char key)
@@ -130,6 +170,7 @@ void APlayer::Move(char key)
 			FGame::SetType(EType::Player, CurX - 1, CurY);
 			GetPos().SetX(CurX - 1);
 		}
+
 		break;
 	case 's':
 		if (FGame::GetType(CurX, CurY + 1) == EType::None ||
@@ -143,6 +184,7 @@ void APlayer::Move(char key)
 			FGame::SetType(EType::Player, CurX, CurY + 1);
 			GetPos().SetY(CurY + 1);
 		}
+
 		break;
 	case 'd':
 		if (FGame::GetType(CurX + 1, CurY) == EType::None ||
@@ -156,7 +198,9 @@ void APlayer::Move(char key)
 			FGame::SetType(EType::Player, CurX + 1, CurY);
 			GetPos().SetX(CurX + 1);
 		}
+
 		break;
+
 	default:
 		break;
 	}
@@ -180,7 +224,7 @@ void APlayer::Attack(char key)
 				if (Actor->GetPos().GetX() == CurX && Actor->GetPos().GetY() == CurY - 1)
 				{
 					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << Actor->GetHP();
+					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
 					if (Actor->GetHP() == 0)
 					{
 						FGame::SetType(EType::None, CurX, CurY - 1);
@@ -198,7 +242,7 @@ void APlayer::Attack(char key)
 				if (Actor->GetPos().GetX() == CurX - 1 && Actor->GetPos().GetY() == CurY)
 				{
 					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << Actor->GetHP();
+					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
 					if (Actor->GetHP() == 0)
 					{
 						FGame::SetType(EType::None, CurX - 1, CurY);
@@ -209,7 +253,6 @@ void APlayer::Attack(char key)
 					}
 				}
 			}
-
 			break;
 		case 's':
 			for (AActor* Actor : FGame::GetActors())
@@ -217,7 +260,7 @@ void APlayer::Attack(char key)
 				if (Actor->GetPos().GetX() == CurX && Actor->GetPos().GetY() == CurY + 1)
 				{
 					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << Actor->GetHP();
+					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
 					if (Actor->GetHP() == 0)
 					{
 						FGame::SetType(EType::None, CurX, CurY + 1);
@@ -228,7 +271,6 @@ void APlayer::Attack(char key)
 					}
 				}
 			}
-
 			break;
 		case 'd':
 			for (AActor* Actor : FGame::GetActors())
@@ -236,7 +278,7 @@ void APlayer::Attack(char key)
 				if (Actor->GetPos().GetX() == CurX + 1&& Actor->GetPos().GetY() == CurY)
 				{
 					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << Actor->GetHP();
+					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
 					if (Actor->GetHP() == 0)
 					{
 						FGame::SetType(EType::None, CurX + 1, CurY);
@@ -247,7 +289,6 @@ void APlayer::Attack(char key)
 					}
 				}
 			}
-
 			break;
 		}
 

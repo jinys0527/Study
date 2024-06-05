@@ -5,8 +5,7 @@
 #include "Slime.h"
 #include "Monster.h"
 #include <fstream>
-#include <iostream>
-using namespace std;
+#include "Util.h"
 
 std::vector<AActor*> FGame::Actors;
 std::vector<std::vector<EType>> FGame::Map;

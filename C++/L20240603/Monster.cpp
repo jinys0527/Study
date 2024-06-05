@@ -1,9 +1,6 @@
 #include "Monster.h"
 #include "Game.h"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-using namespace std;
+#include "Util.h"
 
 FMonster::FMonster()
 {
@@ -35,7 +32,9 @@ void FMonster::Attack()
 {  
 	int CurX = GetPos().GetX();
 	int CurY = GetPos().GetY();
-	switch (CurDirection)
+	int num = rand() % 4 + 1;
+	CurDirection = num;
+	switch (num)
 	{
 	case 1:			//W
 		if (CurY > 0 && FGame::GetType(CurX, CurY - 1) == EType::Player)
@@ -45,10 +44,12 @@ void FMonster::Attack()
 				if (FGame::GetActors()[i]->GetPos().GetX() == GetPos().GetX() && FGame::GetActors()[i]->GetPos().GetY() == GetPos().GetY() - 1)
 				{
 					FGame::GetActors()[i]->SetHP(FGame::GetActors()[i]->GetHP() - 10);
-					cout << FGame::GetActors()[i]->GetName() << FGame::GetActors()[i]->GetHP();
+					cout << FGame::GetActors()[i]->GetName() << " : " << FGame::GetActors()[i]->GetHP();
 				}
 			}
 		}
+		PrintType();
+		cout << " Attack Up" << endl;
 		break;
 	case 2:			//A
 		if (CurX > 0 && FGame::GetType(CurX - 1, CurY) == EType::Player)
@@ -62,6 +63,8 @@ void FMonster::Attack()
 				}
 			}
 		}
+		PrintType();
+		cout << " Attack Left" << endl;
 		break;
 	case 3:			//S
 		if (CurY < 9 && FGame::GetType(CurX, CurY + 1) == EType::Player)
@@ -75,6 +78,8 @@ void FMonster::Attack()
 				}
 			}
 		}
+		PrintType();
+		cout << " Attack Down" << endl;
 		break;
 	case 4:			//D
 		if (CurX < 9 && FGame::GetType(CurX + 1, CurY) == EType::Player)
@@ -88,6 +93,8 @@ void FMonster::Attack()
 				}
 			}
 		}
+		PrintType();
+		cout << " Attack Right" << endl;
 		break;
 	default:
 		break;

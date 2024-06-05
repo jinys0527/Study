@@ -1,7 +1,6 @@
 #include "Goblin.h"
 #include "Game.h"
-#include <cstdlib>
-#include <ctime>
+#include "Util.h"
 
 FGoblin::FGoblin()
 {
@@ -36,6 +35,7 @@ void FGoblin::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Goblin, CurX, CurY - 1);
 			GetPos().SetY(CurY - 1);
+			cout << "Goblin Move Up" << endl;
 		}
 		break;
 	case 2:
@@ -44,6 +44,7 @@ void FGoblin::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Goblin, CurX - 1, CurY);
 			GetPos().SetX(CurX - 1);
+			cout << "Goblin Move Left" << endl;
 		}
 		break;
 	case 3:
@@ -52,6 +53,7 @@ void FGoblin::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Goblin, CurX, CurY + 1);
 			GetPos().SetY(CurY + 1);
+			cout << "Goblin Move Down" << endl;
 		}
 		break;
 	case 4:
@@ -60,6 +62,7 @@ void FGoblin::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Goblin, CurX + 1, CurY);
 			GetPos().SetX(CurX + 1);
+			cout << "Goblin Move Right" << endl;
 		}
 		break;
 	default:

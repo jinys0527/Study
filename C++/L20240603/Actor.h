@@ -24,6 +24,7 @@ public:
 	bool GetFlag();
 	void SetFlag(bool NewFlag);
 	EType GetType();
+	void PrintType();
 	void SetType(EType NewType);
 	FPosition& GetPos();
 	virtual bool GetArriveFlag();
@@ -31,6 +32,8 @@ public:
 	virtual void Move(char key);
 	virtual void Attack();
 	virtual void Attack(char key);
+	virtual void PrintMove(char key);
+	virtual void PrintAttack(char key);
 	virtual std::string GetName();
 	virtual void Die();
 protected:

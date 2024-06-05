@@ -10,6 +10,8 @@ public:
 	void SetAttackFlag(bool NewFlag);
 	virtual bool GetArriveFlag() override;
 	void SetArriveFlag(bool NewFlag);
+	virtual void PrintMove(char key);
+	virtual void PrintAttack(char key);
 	virtual void Move(char key) override;
 	virtual void Attack(char key) override;
 	void DetectEnemy(char key);

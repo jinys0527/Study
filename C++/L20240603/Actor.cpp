@@ -1,5 +1,5 @@
 #include "Actor.h"
-#include <string>
+#include "Util.h"
 
 AActor::AActor()
 {
@@ -36,6 +36,36 @@ EType AActor::GetType()
 	return Type;
 }
 
+void AActor::PrintType()
+{
+	switch(GetType())
+	{
+	case EType::None:
+		cout << "None";
+		break;
+	case EType::Wall:
+		cout << "Wall";
+		break;
+	case EType::Player:
+		cout << "Player";
+		break;
+	case EType::EndPoint:
+		cout << "EndPoint";
+		break;
+	case EType::Goblin:
+		cout << "Goblin";
+		break;
+	case EType::Boar:
+		cout << "Boar";
+		break;
+	case EType::Slime:
+		cout << "Slime";
+		break;
+	default:
+		break;
+	}
+}
+
 void AActor::SetType(EType NewType)
 {
 	Type = NewType;
@@ -64,6 +94,14 @@ void AActor::Attack()
 }
 
 void AActor::Attack(char key)
+{
+}
+
+void AActor::PrintMove(char key)
+{
+}
+
+void AActor::PrintAttack(char key)
 {
 }
 

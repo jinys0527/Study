@@ -1,7 +1,6 @@
 #include "Boar.h"
 #include "Game.h"
-#include <cstdlib>
-#include <ctime>
+#include "Util.h"
 
 FBoar::FBoar()
 {
@@ -35,6 +34,7 @@ void FBoar::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Boar, CurX, CurY - 1);
 			GetPos().SetY(CurY - 1);
+			cout << "Boar Move Up" << endl;
 		}
 		break;
 	case 2:
@@ -43,6 +43,7 @@ void FBoar::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Boar, CurX - 1, CurY);
 			GetPos().SetX(CurX - 1);
+			cout << "Boar Move Left" << endl;
 		}
 		break;
 	case 3:
@@ -51,6 +52,7 @@ void FBoar::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Boar, CurX, CurY + 1);
 			GetPos().SetY(CurY + 1);
+			cout << "Boar Move Down" << endl;
 		}
 		break;
 	case 4:
@@ -59,6 +61,7 @@ void FBoar::Move()
 			FGame::SetType(EType::None, CurX, CurY);
 			FGame::SetType(EType::Boar, CurX + 1, CurY);
 			GetPos().SetX(CurX + 1);
+			cout << "Boar Move Right" << endl;
 		}
 		break;
 	default:
