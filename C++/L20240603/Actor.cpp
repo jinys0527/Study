@@ -1,6 +1,8 @@
 #include "Actor.h"
 #include "Util.h"
+#include "Game.h"
 
+bool AActor::DieFlag;
 AActor::AActor()
 {
 	HP = 100;
@@ -89,12 +91,124 @@ void AActor::Move(char key)
 {
 }
 
+void AActor::MoveUp(EType Type, int X, int Y)
+{
+	FGame::SetType(EType::None, X, Y);
+	Y--;
+	FGame::SetType(Type, X, Y);
+	GetPos().SetY(Y);
+}
+
+void AActor::MoveLeft(EType Type, int X, int Y)
+{
+	FGame::SetType(EType::None, X, Y);
+	X--;
+	FGame::SetType(Type, X, Y);
+	GetPos().SetX(X);
+}
+
+void AActor::MoveDown(EType Type, int X, int Y)
+{
+	FGame::SetType(EType::None, X, Y);
+	Y++;
+	FGame::SetType(Type, X, Y);
+	GetPos().SetY(Y);
+}
+
+void AActor::MoveRight(EType Type, int X, int Y)
+{
+	FGame::SetType(EType::None, X, Y);
+	X++;
+	FGame::SetType(Type, X, Y);
+	GetPos().SetX(X);
+}
+
+
+
 void AActor::Attack()
 {
 }
 
 void AActor::Attack(char key)
 {
+}
+
+void AActor::AttackUp(AActor* Actor, int X, int Y)
+{
+	if (Actor->GetPos().GetX() == X && Actor->GetPos().GetY() == Y - 1)
+	{
+		Actor->SetHP(Actor->GetHP() - 10);
+		cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
+		if (Actor->GetHP() == 0)
+		{
+			FGame::DestroyActor(Actor, X, Y - 1);
+		}
+	}
+}
+
+void AActor::AttackLeft(AActor* Actor, int X, int Y)
+{
+	if (Actor->GetPos().GetX() == X - 1 && Actor->GetPos().GetY() == Y)
+	{
+		Actor->SetHP(Actor->GetHP() - 10);
+		cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
+		if (Actor->GetHP() == 0)
+		{
+			FGame::DestroyActor(Actor, X - 1, Y);
+		}
+	}
+}
+
+void AActor::AttackDown(AActor* Actor, int X, int Y)
+{
+	if (Actor->GetPos().GetX() == X && Actor->GetPos().GetY() == Y + 1)
+	{
+		Actor->SetHP(Actor->GetHP() - 10);
+		cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
+		if (Actor->GetHP() == 0)
+		{
+			FGame::DestroyActor(Actor, X, Y + 1);
+		}
+	}
+}
+
+void AActor::AttackRight(AActor* Actor, int X, int Y)
+{
+	if (Actor->GetPos().GetX() == X + 1 && Actor->GetPos().GetY() == Y)
+	{
+		Actor->SetHP(Actor->GetHP() - 10);
+		cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
+		if (Actor->GetHP() == 0)
+		{
+			FGame::DestroyActor(Actor, X + 1, Y);
+		}
+	}
+}
+
+bool AActor::IsMonster(int X, int Y)
+{
+	if (FGame::GetType(X, Y) == EType::Goblin ||
+		FGame::GetType(X, Y) == EType::Boar ||
+		FGame::GetType(X, Y) == EType::Slime)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool AActor::CanMove(int X, int Y)
+{
+	if (FGame::GetType(X, Y) == EType::None)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void AActor::PrintMove(char key)

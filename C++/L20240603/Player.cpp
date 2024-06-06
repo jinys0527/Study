@@ -30,6 +30,18 @@ void APlayer::SetAttackFlag(bool NewFlag)
 	AttackFlag = NewFlag;
 }
 
+bool APlayer::IsArrive(int X, int Y)
+{
+	if (FGame::GetType(X, Y) == EType::EndPoint)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 bool APlayer::GetArriveFlag()
 {
 	return ArriveFlag;
@@ -89,9 +101,7 @@ void APlayer::DetectEnemy(char key)
 	switch (key)
 	{
 	case 'w':
-		if (FGame::GetType(CurX, CurY - 1) == EType::Goblin ||
-			FGame::GetType(CurX, CurY - 1) == EType::Boar || 
-			FGame::GetType(CurX, CurY - 1) == EType::Slime)
+		if (IsMonster(CurX, CurY - 1))
 		{
 			AttackFlag = true;
 		}
@@ -101,9 +111,7 @@ void APlayer::DetectEnemy(char key)
 		}
 		break;
 	case 'a':
-		if (FGame::GetType(CurX - 1, CurY) == EType::Goblin ||
-			FGame::GetType(CurX - 1, CurY) == EType::Boar ||
-			FGame::GetType(CurX - 1, CurY) == EType::Slime)
+		if (IsMonster(CurX - 1, CurY))
 		{
 			AttackFlag = true;
 		}
@@ -113,9 +121,7 @@ void APlayer::DetectEnemy(char key)
 		}
 		break;
 	case 's':
-		if (FGame::GetType(CurX, CurY + 1) == EType::Goblin ||
-			FGame::GetType(CurX, CurY + 1) == EType::Boar ||
-			FGame::GetType(CurX, CurY + 1) == EType::Slime)
+		if (IsMonster(CurX, CurY + 1))
 		{
 			AttackFlag = true;
 		}
@@ -125,9 +131,7 @@ void APlayer::DetectEnemy(char key)
 		}
 		break;
 	case 'd':
-		if (FGame::GetType(CurX + 1, CurY) == EType::Goblin ||
-			FGame::GetType(CurX + 1, CurY) == EType::Boar ||
-			FGame::GetType(CurX + 1, CurY) == EType::Slime)
+		if (IsMonster(CurX + 1, CurY))
 		{
 			AttackFlag = true;
 		}
@@ -146,57 +150,45 @@ void APlayer::Move(char key)
 	switch (key)
 	{
 	case 'w':
-		if (FGame::GetType(CurX, CurY - 1) == EType::None ||
-			FGame::GetType(CurX, CurY - 1) == EType::EndPoint)
+		if (CanMove(CurX, CurY -1) || IsArrive(CurX, CurY - 1))
 		{
 			if (FGame::GetType(CurX, CurY - 1) == EType::EndPoint)
 			{
 				ArriveFlag = true;
 			}
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Player, CurX, CurY - 1);
-			GetPos().SetY(CurY - 1);
+			MoveUp(EType::Player, CurX, CurY);
 		}
 		break;
 	case 'a':
-		if (FGame::GetType(CurX - 1, CurY) == EType::None ||
-			FGame::GetType(CurX - 1, CurY) == EType::EndPoint)
+		if (CanMove(CurX - 1, CurY) || IsArrive(CurX - 1, CurY))
 		{
 			if (FGame::GetType(CurX - 1, CurY) == EType::EndPoint)
 			{
 				ArriveFlag = true;
 			}
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Player, CurX - 1, CurY);
-			GetPos().SetX(CurX - 1);
+			MoveLeft(EType::Player, CurX, CurY);
 		}
 
 		break;
 	case 's':
-		if (FGame::GetType(CurX, CurY + 1) == EType::None ||
-			FGame::GetType(CurX, CurY + 1) == EType::EndPoint)
+		if (CanMove(CurX, CurY + 1) || IsArrive(CurX, CurY + 1))
 		{
 			if (FGame::GetType(CurX, CurY + 1) == EType::EndPoint)
 			{
 				ArriveFlag = true;
 			}
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Player, CurX, CurY + 1);
-			GetPos().SetY(CurY + 1);
+			MoveDown(EType::Player, CurX, CurY);
 		}
 
 		break;
 	case 'd':
-		if (FGame::GetType(CurX + 1, CurY) == EType::None ||
-			FGame::GetType(CurX + 1, CurY) == EType::EndPoint)
+		if (CanMove(CurX + 1, CurY) || IsArrive(CurX + 1, CurY))
 		{
 			if (FGame::GetType(CurX + 1, CurY) == EType::EndPoint)
 			{
 				ArriveFlag = true;
 			}
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Player, CurX + 1, CurY);
-			GetPos().SetX(CurX + 1);
+			MoveRight(EType::Player, CurX, CurY);
 		}
 
 		break;
@@ -204,7 +196,7 @@ void APlayer::Move(char key)
 	default:
 		break;
 	}
-
+	PrintMove(key);
 	Direction = key;
 }
 
@@ -221,76 +213,28 @@ void APlayer::Attack(char key)
 		case 'w':
 			for (AActor* Actor : FGame::GetActors())
 			{
-				if (Actor->GetPos().GetX() == CurX && Actor->GetPos().GetY() == CurY - 1)
-				{
-					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
-					if (Actor->GetHP() == 0)
-					{
-						FGame::SetType(EType::None, CurX, CurY - 1);
-						delete Actor;
-						FGame::GetActors().erase(std::remove(FGame::GetActors().begin(), FGame::GetActors().end(), Actor), FGame::GetActors().end());
-						system("cls");
-						FGame::Print();
-					}
-				}
+				AttackUp(Actor, CurX, CurY);
 			}
 			break;
 		case 'a':
 			for (AActor* Actor : FGame::GetActors())
 			{
-				if (Actor->GetPos().GetX() == CurX - 1 && Actor->GetPos().GetY() == CurY)
-				{
-					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
-					if (Actor->GetHP() == 0)
-					{
-						FGame::SetType(EType::None, CurX - 1, CurY);
-						delete Actor;
-						FGame::GetActors().erase(std::remove(FGame::GetActors().begin(), FGame::GetActors().end(), Actor), FGame::GetActors().end());
-						system("cls");
-						FGame::Print();
-					}
-				}
+				AttackLeft(Actor, CurX, CurY);
 			}
 			break;
 		case 's':
 			for (AActor* Actor : FGame::GetActors())
 			{
-				if (Actor->GetPos().GetX() == CurX && Actor->GetPos().GetY() == CurY + 1)
-				{
-					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
-					if (Actor->GetHP() == 0)
-					{
-						FGame::SetType(EType::None, CurX, CurY + 1);
-						delete Actor;
-						FGame::GetActors().erase(std::remove(FGame::GetActors().begin(), FGame::GetActors().end(), Actor), FGame::GetActors().end());
-						system("cls");
-						FGame::Print();
-					}
-				}
+				AttackDown(Actor, CurX, CurY);
 			}
 			break;
 		case 'd':
 			for (AActor* Actor : FGame::GetActors())
 			{
-				if (Actor->GetPos().GetX() == CurX + 1&& Actor->GetPos().GetY() == CurY)
-				{
-					Actor->SetHP(Actor->GetHP() - 10);
-					cout << Actor->GetName() << " : " << Actor->GetHP() << endl;
-					if (Actor->GetHP() == 0)
-					{
-						FGame::SetType(EType::None, CurX + 1, CurY);
-						delete Actor;
-						FGame::GetActors().erase(std::remove(FGame::GetActors().begin(), FGame::GetActors().end(), Actor), FGame::GetActors().end());
-						system("cls");
-						FGame::Print();
-					}
-				}
+				AttackRight(Actor, CurX, CurY);
 			}
 			break;
 		}
-
+		PrintAttack(key);
 	}
 }

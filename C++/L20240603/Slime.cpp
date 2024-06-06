@@ -22,45 +22,37 @@ FSlime::FSlime(int X, int Y)
 
 void FSlime::Move()
 {
-	int num = rand() % 4 + 1;
+	int num = 2;
 	CurDirection = num;
 	int CurX = GetPos().GetX();
 	int CurY = GetPos().GetY();
 	switch (num)
 	{
 	case 1:
-		if (FGame::GetType(CurX, CurY - 1) == EType::None)
+		if (CanMove(CurX, CurY - 1))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Slime, CurX, CurY - 1);
-			GetPos().SetY(CurY - 1);
+			MoveUp(EType::Slime, CurX, CurY);
 			cout << "Slime Move Up" << endl;
 		}
 		break;
 	case 2:
-		if (FGame::GetType(CurX - 1, CurY) == EType::None)
+		if (CanMove(CurX - 1, CurY))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Slime, CurX - 1, CurY);
-			GetPos().SetX(CurX - 1);
+			MoveLeft(EType::Slime, CurX, CurY);
 			cout << "Slime Move Left" << endl;
 		}
 		break;
 	case 3:
-		if (FGame::GetType(CurX, CurY + 1) == EType::None)
+		if (CanMove(CurX, CurY + 1))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Slime, CurX, CurY + 1);
-			GetPos().SetY(CurY + 1);
+			MoveDown(EType::Slime, CurX, CurY);
 			cout << "Slime Move Down" << endl;
 		}
 		break;
 	case 4:
-		if (FGame::GetType(CurX + 1, CurY) == EType::None)
+		if (CanMove(CurX + 1, CurY))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Slime, CurX + 1, CurY);
-			GetPos().SetX(CurX + 1);
+			MoveRight(EType::Slime, CurX, CurY);
 			cout << "Slime Move Right" << endl;
 		}
 		break;

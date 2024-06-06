@@ -21,8 +21,8 @@ public:
 	virtual ~AActor();
 	int GetHP();
 	void SetHP(int NewHP);
-	bool GetFlag();
-	void SetFlag(bool NewFlag);
+	static bool GetFlag();
+	static void SetFlag(bool NewFlag);
 	EType GetType();
 	void PrintType();
 	void SetType(EType NewType);
@@ -30,8 +30,18 @@ public:
 	virtual bool GetArriveFlag();
 	virtual void Move();
 	virtual void Move(char key);
+	virtual void MoveUp(EType Type, int X, int Y);
+	virtual void MoveLeft(EType Type, int X, int Y);
+	virtual void MoveDown(EType Type, int X, int Y);
+	virtual void MoveRight(EType Type, int X, int Y);
 	virtual void Attack();
 	virtual void Attack(char key);
+	virtual void AttackUp(AActor* Actor, int X, int Y);
+	virtual void AttackLeft(AActor* Actor, int X, int Y);
+	virtual void AttackDown(AActor* Actor, int X, int Y);
+	virtual void AttackRight(AActor* Actor, int X, int Y);
+	bool IsMonster(int X, int Y);
+	bool CanMove(int X, int Y);
 	virtual void PrintMove(char key);
 	virtual void PrintAttack(char key);
 	virtual std::string GetName();
@@ -41,6 +51,6 @@ protected:
 	std::string Name;
 	int HP;
 	FPosition ActorPos;
-	bool DieFlag;
+	static bool DieFlag;
 };
 

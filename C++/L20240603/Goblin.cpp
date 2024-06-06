@@ -30,38 +30,30 @@ void FGoblin::Move()
 	switch (num)
 	{
 	case 1:
-		if (FGame::GetType(CurX, CurY - 1) == EType::None)
+		if (CanMove(CurX, CurY - 1))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Goblin, CurX, CurY - 1);
-			GetPos().SetY(CurY - 1);
+			MoveUp(EType::Goblin, CurX, CurY);
 			cout << "Goblin Move Up" << endl;
 		}
 		break;
 	case 2:
-		if (FGame::GetType(CurX - 1, CurY) == EType::None)
+		if (CanMove(CurX - 1, CurY))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Goblin, CurX - 1, CurY);
-			GetPos().SetX(CurX - 1);
+			MoveLeft(EType::Goblin, CurX, CurY);
 			cout << "Goblin Move Left" << endl;
 		}
 		break;
 	case 3:
-		if (FGame::GetType(CurX, CurY + 1) == EType::None)
+		if (CanMove(CurX, CurY + 1))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Goblin, CurX, CurY + 1);
-			GetPos().SetY(CurY + 1);
+			MoveDown(EType::Goblin, CurX, CurY);
 			cout << "Goblin Move Down" << endl;
 		}
 		break;
 	case 4:
-		if (FGame::GetType(CurX + 1, CurY) == EType::None)
+		if (CanMove(CurX + 1, CurY))
 		{
-			FGame::SetType(EType::None, CurX, CurY);
-			FGame::SetType(EType::Goblin, CurX + 1, CurY);
-			GetPos().SetX(CurX + 1);
+			MoveRight(EType::Goblin, CurX, CurY);
 			cout << "Goblin Move Right" << endl;
 		}
 		break;

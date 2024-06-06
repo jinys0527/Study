@@ -200,3 +200,31 @@ std::vector<std::vector<EType>> FGame::GetMap()
 {
 	return Map;
 }
+
+void FGame::Update()
+{
+	system("cls");
+	Print();
+}
+
+bool FGame::Restart()
+{
+	if (APlayer::GetFlag() == true)
+	{
+		return true;
+	}
+	return false;
+}
+
+void FGame::ResetMap()
+{
+	Map.clear();
+}
+
+void FGame::DestroyActor(AActor* Actor, int X, int Y)
+{
+	SetType(EType::None, X, Y);
+	delete Actor;
+	GetActors().erase(std::remove(FGame::GetActors().begin(), FGame::GetActors().end(), Actor), FGame::GetActors().end());
+	Update();
+}
